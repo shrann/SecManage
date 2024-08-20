@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Quotation</title>
+</head>
+<body>
+    <h1>Create Quotation</h1>
+    <form method="post" action="{% url 'quotation' %}">
+        {% csrf_token %}
+        
+        <h2>Company Information</h2>
+        <label for="company">Company Name:</label>
+        <input type="text" name="company" id="company" required><br>
+
+        <!-- Security Guard Section -->
+        <label for="guard_basic_pay">Guard Basic Pay:</label>
+        <input type="text" id="guard_basic_pay" name="guard_basic_pay"><br>
+
+        <label for="guard_special_allowance">Guard Special Allowance:</label>
+        <input type="text" id="guard_special_allowance" name="guard_special_allowance"><br>
+
+        <label for="guard_total_a">Guard Total A:</label>
+        <input type="text" id="guard_total_a" name="guard_total_a"><br>
+
+        <label for="guard_conveyance_allowance">Guard Conveyance Allowance:</label>
+        <input type="text" id="guard_conveyance_allowance" name="guard_conveyance_allowance"><br>
+
+        <label for="guard_education_allowance">Guard Education Allowance:</label>
+        <input type="text" id="guard_education_allowance" name="guard_education_allowance"><br>
+
+        <label for="guard_travelling_allowance">Guard Travelling Allowance:</label>
+        <input type="text" id="guard_travelling_allowance" name="guard_travelling_allowance"><br>
+
+        <label for="guard_house_duty">Guard House Duty:</label>
+        <input type="text" id="guard_house_duty" name="guard_house_duty"><br>
+
+        <label for="guard_total_b">Guard Total B:</label>
+        <input type="text" id="guard_total_b" name="guard_total_b"><br>
+
+        <label for="guard_washing_allowance">Guard Washing Allowance:</label>
+        <input type="text" id="guard_washing_allowance" name="guard_washing_allowance"><br>
+
+        <label for="guard_hra">Guard HRA:</label>
+        <input type="text" id="guard_hra" name="guard_hra"><br>
+
+        <label for="guard_sub_total_c">Guard Sub Total C:</label>
+        <input type="text" id="guard_sub_total_c" name="guard_sub_total_c"><br>
+
+        <label for="guard_pf">Guard PF:</label>
+        <input type="text" id="guard_pf" name="guard_pf"><br>
+
+        <label for="guard_gratuity">Guard Gratuity:</label>
+        <input type="text" id="guard_gratuity" name="guard_gratuity"><br>
+
+        <label for="guard_leave_with_wages">Guard Leave with Wages:</label>
+        <input type="text" id="guard_leave_with_wages" name="guard_leave_with_wages"><br>
+
+        <label for="guard_esic">Guard ESIC:</label>
+        <input type="text" id="guard_esic" name="guard_esic"><br>
+
+        <label for="guard_paid_holiday">Guard Paid Holiday:</label>
+        <input type="text" id="guard_paid_holiday" name="guard_paid_holiday"><br>
+
+        <label for="guard_bonus">Guard Bonus:</label>
+        <input type="text" id="guard_bonus" name="guard_bonus"><br>
+
+        <label for="guard_uniform">Guard Uniform:</label>
+        <input type="text" id="guard_uniform" name="guard_uniform"><br>
+
+        <label for="guard_charges">Guard Charges:</label>
+        <input type="text" id="guard_charges" name="guard_charges"><br>
+
+        <label for="guard_total_c">Guard Total C:</label>
+        <input type="text" id="guard_total_c" name="guard_total_c"><br>
+
+        <label for="guard_service_charges">Guard Service Charges:</label>
+        <input type="text" id="guard_service_charges" name="guard_service_charges"><br>
+
+        <label for="guard_grand_total_per_month">Guard Grand Total per Month:</label>
+        <input type="text" id="guard_grand_total_per_month" name="guard_grand_total_per_month"><br>
+
+        <!-- Supervisor Section -->
+        <h2>Supervisor Details</h2>
+        <label for="supervisor_basic_pay">Basic Pay:</label>
+        <input type="number" step="0.01" name="supervisor_basic_pay" id="supervisor_basic_pay" required><br>
+
+        <label for="supervisor_special_allowance">Special Allowance:</label>
+        <input type="number" step="0.01" name="supervisor_special_allowance" id="supervisor_special_allowance" required><br>
+
+        <label for="supervisor_total_a">Total (A):</label>
+        <input type="number" step="0.01" name="supervisor_total_a" id="supervisor_total_a" required><br>
+
+        <label for="supervisor_conveyance_allowance">Conveyance Allowance:</label>
+        <input type="number" step="0.01" name="supervisor_conveyance_allowance" id="supervisor_conveyance_allowance" required><br>
+
+        <label for="supervisor_education_allowance">Education Allowance:</label>
+        <input type="number" step="0.01" name="supervisor_education_allowance" id="supervisor_education_allowance" required><br>
+
+        <label for="supervisor_travelling_allowance">Travelling Allowance:</label>
+        <input type="number" step="0.01" name="supervisor_travelling_allowance" id="supervisor_travelling_allowance" required><br>
+
+        <label for="supervisor_house_duty">House Duty:</label>
+        <input type="number" step="0.01" name="supervisor_house_duty" id="supervisor_house_duty" required><br>
+
+        <label for="supervisor_total_b">Total (B):</label>
+        <input type="number" step="0.01" name="supervisor_total_b" id="supervisor_total_b" required><br>
+
+        <label for="supervisor_washing_allowance">Washing Allowance:</label>
+        <input type="number" step="0.01" name="supervisor_washing_allowance" id="supervisor_washing_allowance" required><br>
+
+        <label for="supervisor_hra">HRA:</label>
+        <input type="number" step="0.01" name="supervisor_hra" id="supervisor_hra" required><br>
+
+        <label for="supervisor_sub_total_c">Sub Total (C):</label>
+        <input type="number" step="0.01" name="supervisor_sub_total_c" id="supervisor_sub_total_c" required><br>
+
+        <label for="supervisor_pf">PF:</label>
+        <input type="number" step="0.01" name="supervisor_pf" id="supervisor_pf" required><br>
+
+        <label for="supervisor_gratuity">Gratuity:</label>
+        <input type="number" step="0.01" name="supervisor_gratuity" id="supervisor_gratuity" required><br>
+
+        <label for="supervisor_leave_with_wages">Leave with Wages:</label>
+        <input type="number" step="0.01" name="supervisor_leave_with_wages" id="supervisor_leave_with_wages" required><br>
+
+        <label for="supervisor_esic">ESIC:</label>
+        <input type="number" step="0.01" name="supervisor_esic" id="supervisor_esic" required><br>
+
+        <label for="supervisor_paid_holiday">Paid Holiday:</label>
+        <input type="number" step="0.01" name="supervisor_paid_holiday" id="supervisor_paid_holiday" required><br>
+
+        <label for="supervisor_bonus">Bonus:</label>
+        <input type="number" step="0.01" name="supervisor_bonus" id="supervisor_bonus" required><br>
+
+        <label for="supervisor_uniform">Uniform:</label>
+        <input type="number" step="0.01" name="supervisor_uniform" id="supervisor_uniform" required><br>
+
+        <label for="supervisor_charges">Charges:</label>
+        <input type="number" step="0.01" name="supervisor_charges" id="supervisor_charges" required><br>
+
+        <label for="supervisor_total_c">Total (C):</label>
+        <input type="number" step="0.01" name="supervisor_total_c" id="supervisor_total_c" required><br>
+
+        <label for="supervisor_service_charges">Service Charges:</label>
+        <input type="number" step="0.01" name="supervisor_service_charges" id="supervisor_service_charges" required><br>
+
+        <label for="supervisor_grand_total_per_month">Grand Total per Month:</label>
+        <input type="number" step="0.01" name="supervisor_grand_total_per_month" id="supervisor_grand_total_per_month" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

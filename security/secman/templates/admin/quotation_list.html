@@ -1,0 +1,383 @@
+{% extends 'admin/basead.html' %}
+
+{% block content %}
+<style>
+     /* Modal container */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* Modal content */
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 800px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: relative;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    /* Close button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Flex container for side-by-side fields */
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Space between fields */
+    }
+
+    .form-row label {
+        flex: 1 1 100%;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .form-row .form-group {
+        flex: 1;
+        min-width: calc(50% - 20px); /* Adjust width for side-by-side layout */
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"] {
+        width: 100%; /* Full width of the container */
+        padding: 10px;
+        margin-bottom: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box; /* Includes padding in width calculation */
+    }
+
+    form input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        display: block;
+        width: 100%;
+    }
+
+    form input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Table Styles */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+        font-weight: bold;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    td a, td button {
+        color: #007bff;
+        text-decoration: none;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+    td a:hover, td button:hover {
+        text-decoration: underline;
+    }
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    h1 {
+        text-align: center;
+        color: #333333;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        /* animation: slideIn 1s ease-in-out; */
+    }
+
+    .card {
+            width: 95%;
+            margin: 2% auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in;
+        }
+
+    table {
+        width: 95%;
+        margin-left: 30px;
+        /* margin-right: 0px; */
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 20px;
+        animation: grow 1s ease-in-out;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    th, td {
+        padding: 20px;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
+        /* transition: background-color 0.3s ease-in-out;    */
+    }
+    th {
+        background-color: #312929;
+        color: #ffffff;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #e9ecef;
+    }
+    td {
+        position: relative;
+    }
+    td:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 0;
+        background-color: #000000;
+        /* transition: width 0.4s ease-in-out; */
+    }
+    td:hover:before {
+        width: 100%;
+    }
+    th:first-child {
+        border-top-left-radius: 10px;
+    }
+    th:last-child {
+        border-top-right-radius: 10px;
+    }
+    tr:last-child td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+    tr:last-child td:last-child {
+        border-bottom-right-radius: 10px;
+    }
+</style>
+</head>
+<body>
+    <h1>List of Quotations</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Sr. No.</th>
+                <th>Company Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quotation in quotations %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ quotation.company }}</td>
+                <td>
+                    <a href="{% url 'view_quotation_pdf' quotation.id %}" target="_blank">View PDF</a>
+                    <button onclick="openEditModal({{ quotation.id }}, '{{ quotation.company }}', {{ quotation.basic_pay }}, {{ quotation.special_allowance }}, {{ quotation.total_a }}, {{ quotation.conveyance_allowance }}, {{ quotation.education_allowance }}, {{ quotation.travelling_allowance }}, {{ quotation.house_duty }}, {{ quotation.total_b }}, {{ quotation.washing_allowance }}, {{ quotation.hra }}, {{ quotation.sub_total_c }}, {{ quotation.pf }}, {{ quotation.gratuity }}, {{ quotation.leave_with_wages }}, {{ quotation.esic }}, {{ quotation.paid_holiday }}, {{ quotation.bonus }}, {{ quotation.uniform }}, {{ quotation.charges }}, {{ quotation.total_c }}, {{ quotation.service_charges }}, {{ quotation.grand_total_per_month }})">Edit</button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No quotations found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal HTML -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Quotation</h2>
+            <form id="editForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="quotationId">
+                <label for="company">Company Name:</label>
+                <input type="text" name="company" id="companyName" required><br>
+                
+                <label for="basic_pay">Basic Pay:</label>
+                <input type="number" step="0.01" name="basic_pay" id="basicPay" required><br>
+                
+                <label for="special_allowance">Special Allowance:</label>
+                <input type="number" step="0.01" name="special_allowance" id="specialAllowance" required><br>
+                
+                <label for="total_a">Total (A):</label>
+                <input type="number" step="0.01" name="total_a" id="totalA" required><br>
+                
+                <label for="conveyance_allowance">Conveyance Allowance:</label>
+                <input type="number" step="0.01" name="conveyance_allowance" id="conveyanceAllowance" required><br>
+                
+                <label for="education_allowance">Education Allowance:</label>
+                <input type="number" step="0.01" name="education_allowance" id="educationAllowance" required><br>
+                
+                <label for="travelling_allowance">Travelling Allowance:</label>
+                <input type="number" step="0.01" name="travelling_allowance" id="travellingAllowance" required><br>
+                
+                <label for="house_duty">House Duty:</label>
+                <input type="number" step="0.01" name="house_duty" id="houseDuty" required><br>
+                
+                <label for="total_b">Total (B):</label>
+                <input type="number" step="0.01" name="total_b" id="totalB" required><br>
+                
+                <label for="washing_allowance">Washing Allowance:</label>
+                <input type="number" step="0.01" name="washing_allowance" id="washingAllowance" required><br>
+                
+                <label for="hra">HRA:</label>
+                <input type="number" step="0.01" name="hra" id="hra" required><br>
+                
+                <label for="sub_total_c">Sub Total (C):</label>
+                <input type="number" step="0.01" name="sub_total_c" id="subTotalC" required><br>
+                
+                <label for="pf">PF:</label>
+                <input type="number" step="0.01" name="pf" id="pf" required><br>
+                
+                <label for="gratuity">Gratuity:</label>
+                <input type="number" step="0.01" name="gratuity" id="gratuity" required><br>
+                
+                <label for="leave_with_wages">Leave With Wages:</label>
+                <input type="number" step="0.01" name="leave_with_wages" id="leaveWithWages" required><br>
+                
+                <label for="esic">ESIC:</label>
+                <input type="number" step="0.01" name="esic" id="esic" required><br>
+                
+                <label for="paid_holiday">Paid Holiday:</label>
+                <input type="number" step="0.01" name="paid_holiday" id="paidHoliday" required><br>
+                
+                <label for="bonus">Bonus:</label>
+                <input type="number" step="0.01" name="bonus" id="bonus" required><br>
+                
+                <label for="uniform">Uniform:</label>
+                <input type="number" step="0.01" name="uniform" id="uniform" required><br>
+                
+                <label for="charges">Charges:</label>
+                <input type="number" step="0.01" name="charges" id="charges" required><br>
+                
+                <label for="total_c">Total (C):</label>
+                <input type="number" step="0.01" name="total_c" id="totalC" required><br>
+                
+                <label for="service_charges">Service Charges:</label>
+                <input type="number" step="0.01" name="service_charges" id="serviceCharges" required><br>
+                
+                <label for="grand_total_per_month">Grand Total per Month:</label>
+                <input type="number" step="0.01" name="grand_total_per_month" id="grandTotalPerMonth" required><br>
+
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openEditModal(id, companyName, basicPay, specialAllowance, totalA, conveyanceAllowance, educationAllowance, travellingAllowance, houseDuty, totalB, washingAllowance, hra, subTotalC, pf, gratuity, leaveWithWages, esic, paidHoliday, bonus, uniform, charges, totalC, serviceCharges, grandTotalPerMonth) {
+            document.getElementById('quotationId').value = id;
+            document.getElementById('companyName').value = companyName;
+            document.getElementById('basicPay').value = basicPay;
+            document.getElementById('specialAllowance').value = specialAllowance;
+            document.getElementById('totalA').value = totalA;
+            document.getElementById('conveyanceAllowance').value = conveyanceAllowance;
+            document.getElementById('educationAllowance').value = educationAllowance;
+            document.getElementById('travellingAllowance').value = travellingAllowance;
+            document.getElementById('houseDuty').value = houseDuty;
+            document.getElementById('totalB').value = totalB;
+            document.getElementById('washingAllowance').value = washingAllowance;
+            document.getElementById('hra').value = hra;
+            document.getElementById('subTotalC').value = subTotalC;
+            document.getElementById('pf').value = pf;
+            document.getElementById('gratuity').value = gratuity;
+            document.getElementById('leaveWithWages').value = leaveWithWages;
+            document.getElementById('esic').value = esic;
+            document.getElementById('paidHoliday').value = paidHoliday;
+            document.getElementById('bonus').value = bonus;
+            document.getElementById('uniform').value = uniform;
+            document.getElementById('charges').value = charges;
+            document.getElementById('totalC').value = totalC;
+            document.getElementById('serviceCharges').value = serviceCharges;
+            document.getElementById('grandTotalPerMonth').value = grandTotalPerMonth;
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Optional: Handle form submission via JavaScript (AJAX) to avoid page reload
+        document.getElementById('editForm').onsubmit = function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            var formData = new FormData(this);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url "update_quotation" %}', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Handle success (e.g., update the table, close the modal)
+                    location.reload(); // Reload the page
+                } else {
+                    // Handle error
+                    alert('An error occurred!');
+                }
+            };
+            xhr.send(formData);
+        };
+    </script>
+</body>
+{% endblock %}

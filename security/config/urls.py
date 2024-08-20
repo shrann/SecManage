@@ -29,10 +29,15 @@ urlpatterns = [
     path('fo_dashboard/', views.fo_dashboard, name='fo_dashboard'),
     path('add_employee/', views.add_employee, name='add_employee'),
     path('create_quotation/', views.create_quotation, name='create_quotation'),
+    path('createquotation/', views.createquotation, name='createquotation'),
     path('addshift',views.addshift,name='addshift'),
     path('shifts/', views.shift_list, name='shift_list'),
     path('markattendance',views.markattendance, name='markattendance'),
     path('markattendance/submit/<int:employee_id>/', views.submit_attendance, name='submit_attendance'),
+    path('quotation', views.quotation, name='quotation'),
+    path('quotation_list/', views.quotation_list, name='quotation_list'),
+    path('view_quotation-pdf/<int:pk>/', views.view_quotation_pdf, name='view_quotation_pdf'),
+    path('update-quotation/', views.update_quotation, name='update_quotation'),
     
     path('admin/', admin.site.urls),
 ]

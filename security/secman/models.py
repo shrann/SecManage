@@ -122,21 +122,6 @@ class Attendance(models.Model):
     class Meta:
         unique_together = ('employee', 'date')  # Ensure that an employee cannot have duplicate attendance records on the same day
         ordering = ['date']
-        
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
 
 
 class Quotation(models.Model):
@@ -150,3 +135,66 @@ class Quotation(models.Model):
 
     def __str__(self):
         return f"Quotation for {self.company.user.email} by {self.user.email}"
+
+
+# models.py
+from django.db import models
+
+from django.db import models
+
+class Quotations(models.Model):
+    # Fields for security guards
+    company = models.CharField(max_length=100)
+    guard_basic_pay = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_special_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_total_a = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_conveyance_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_education_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_travelling_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_house_duty = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_total_b = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_washing_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_hra = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_sub_total_c = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_pf = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_gratuity = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_leave_with_wages = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_esic = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_paid_holiday = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_bonus = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_uniform = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_charges = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_total_c = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_service_charges = models.DecimalField(max_digits=10, decimal_places=2)
+    guard_grand_total_per_month = models.DecimalField(max_digits=10, decimal_places=2)
+
+    # Fields for supervisors
+    supervisor_basic_pay = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_special_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_total_a = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_conveyance_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_education_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_travelling_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_house_duty = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_total_b = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_washing_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_hra = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_sub_total_c = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_pf = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_gratuity = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_leave_with_wages = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_esic = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_paid_holiday = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_bonus = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_uniform = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_charges = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_total_c = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_service_charges = models.DecimalField(max_digits=10, decimal_places=2)
+    supervisor_grand_total_per_month = models.DecimalField(max_digits=10, decimal_places=2)
+
+    # Add additional fields if needed
+    pdf_file = models.FileField(upload_to='quotations/', blank=True, null=True)
+
+
+
+
